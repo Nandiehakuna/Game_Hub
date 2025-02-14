@@ -1,28 +1,10 @@
-import { useEffect, useState } from "react";
-import ApiClient from "../ApiClient";
 import { SimpleGrid } from "@chakra-ui/react";
 import GameCard from "./GameCard";
-
-export interface Games {
-  id: string;
-  name: string;
-  backgroundImage: string;
-}
-
-interface fetchGameResponse {
-  count: 0;
-  results: Games[];
-}
+import useGame from "../hooks/useGame";
 
 function GameClient() {
-  const [games, setGames] = useState<Games[]>([]);
-  const [error, setError] = useState(false);
+  const { games, error } = useGame();
 
-  useEffect(() => {
-    ApiClient.get<fetchGameResponse>("").then((res) =>
-      setGames(res.data.results)
-    );
-  }, []);
   return (
     <>
       {error && <p>{error}</p>}
