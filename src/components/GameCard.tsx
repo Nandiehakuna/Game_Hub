@@ -1,17 +1,20 @@
 import { Card, Heading } from "@chakra-ui/react";
 
-import { Games } from "./GameClient";
-
-interface Game {
+import { Games } from "../hooks/useGame";
+import PlatformIconsList from "./PlatformIconsList";
+interface Props {
   game: Games;
 }
 
-function GameCard({ game }: Game) {
+function GameCard({ game }: Props) {
   return (
     <Card.Root>
       <Card.Body>
         <Heading>{game.backgroundImage}</Heading>
         <Card.Description>{game.name}</Card.Description>
+        <PlatformIconsList
+          platforms={game.parent_Platforms.map((p) => p.platform)}
+        />
       </Card.Body>
     </Card.Root>
   );
