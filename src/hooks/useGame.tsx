@@ -11,6 +11,7 @@ export interface Games {
   name: string;
   backgroundImage: string;
   parent_Platforms: { platform: Platform }[];
+  miniatricScore: number;
 }
 
 interface fetchGameResponse {
