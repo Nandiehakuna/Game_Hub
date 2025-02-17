@@ -22,11 +22,17 @@ interface fetchGameResponse {
 export default function useGame() {
   const [games, setGames] = useState<Games[]>([]);
   const [error, setError] = useState(false);
+  const [isloading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     ApiClient.get<fetchGameResponse>("")
-      .then((res) => setGames(res.data.results))
+      .then((res) => {
+        setGames(res.data.results);
+        setLoading(false);
+      })
       .catch((err) => setError(err.message));
+    setLoading(false);
   }, []);
-  return { games, error };
+  return { games, error, isloading };
 }
