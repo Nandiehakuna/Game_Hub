@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import ApiClient from "../ApiClient";
+import useData from "./useData";
 
 export interface Platform {
   id: string;
@@ -14,25 +13,6 @@ export interface Games {
   miniatricScore: number;
 }
 
-interface fetchGameResponse {
-  count: 0;
-  results: Games[];
-}
+const useGame = useData<Games>("/games");
 
-export default function useGame() {
-  const [games, setGames] = useState<Games[]>([]);
-  const [error, setError] = useState(false);
-  const [isloading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    ApiClient.get<fetchGameResponse>("")
-      .then((res) => {
-        setGames(res.data.results);
-        setLoading(false);
-      })
-      .catch((err) => setError(err.message));
-    setLoading(false);
-  }, []);
-  return { games, error, isloading };
-}
+export default useGame;
